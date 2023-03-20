@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public  float velocity = 5f;
-    public float rotationVelocity = 1000f;
+    public  float velocity = 6.5f;
 
     // Start is called before the first frame update
     void Start()
