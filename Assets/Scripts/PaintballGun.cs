@@ -6,10 +6,21 @@ public class PaintballGun : MonoBehaviour
 {
     public Transform firepoint;
     public GameObject bulletPrefab;
+    public int shootCount;
+    public float shootInterval;
 
-    public void shoot()
+    public void Shoot()
     {
-        //Spawn bullet
-        Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+        StartCoroutine(SpawnBullets());
+    }
+
+    IEnumerator SpawnBullets()
+    {
+        for (int i = 0; i < shootCount; i++)
+        {
+            // spawn one bullet
+            Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+            yield return new WaitForSeconds(shootInterval);
+        }
     }
 }

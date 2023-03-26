@@ -5,33 +5,65 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public float velocity = 6.5f;
-    public float rotation_speed = 1f;
+    public float velocity;
+    public float rotationVelocity;
+    public bool mobileControl;
 
     public PaintballGun paintballGun;
 
+    // only necessary for mobile control
     private int rotation_direction = 1;
     
     void Update()
     {
-        // movement
-        if (Input.GetKey("w"))
+        // mobile control
+        if (mobileControl)
         {
-            transform.position += transform.right * velocity * Time.deltaTime;
-        } else
-        {
-            transform.Rotate(0, 0, rotation_direction * rotation_speed);
+            if (Input.GetKey("w"))
+            {
+                // move
+                transform.position += transform.right * velocity * Time.deltaTime;
+            }
+            else
+            {
+                // rotate if not moving
+                transform.Rotate(0, 0, rotation_direction * rotationVelocity * Time.deltaTime);
+            }
+
+            if (Input.GetKeyDown("w"))
+            {
+                // change direction of rotation
+                rotation_direction = -rotation_direction;
+
+                // shoot
+                paintballGun.Shoot();
+            }
         }
 
-        if (Input.GetKeyDown("w"))
+        // desktop control
+        else
         {
-            rotation_direction = -rotation_direction;
-        }
+            // get user input
+            float horizontalMovement = Input.GetAxisRaw("Horizontal");
+            float verticalMovement = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            paintballGun.shoot();
-            rotation_direction = -rotation_direction;
+            Vector2 movementVector = new Vector2(horizontalMovement, verticalMovement);
+
+            // move
+            transform.Translate(movementVector * velocity * Time.deltaTime, Space.World);
+
+            // rotate
+            if (movementVector != Vector2.zero)
+            {
+                float angle = Mathf.Atan2(movementVector.y, movementVector.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+
+            // shooting
+            if (Input.GetButtonDown("Fire1"))
+            {
+                paintballGun.Shoot();
+            }
         }
     }
 }

@@ -496,9 +496,9 @@ GameObject:
   m_Component:
   - component: {fileID: 949448293}
   - component: {fileID: 949448292}
-  - component: {fileID: 949448291}
   - component: {fileID: 949448295}
   - component: {fileID: 949448294}
+  - component: {fileID: 949448291}
   - component: {fileID: 949448296}
   m_Layer: 0
   m_Name: Player
@@ -520,7 +520,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 6.5
-  rotation_speed: 1.5
+  rotationVelocity: 200
+  mobileControl: 1
   paintballGun: {fileID: 949448296}
 --- !u!212 &949448292
 SpriteRenderer:
@@ -639,6 +640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firepoint: {fileID: 971965947}
   bulletPrefab: {fileID: 4391653844485948455, guid: 9235364e42c7200448d625be4b0e5890, type: 3}
+  shootCount: 1
+  shootInterval: 0.1
 --- !u!1 &971965946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1168,7 @@ GameObject:
   - component: {fileID: 1779415417}
   m_Layer: 0
   m_Name: Tilemap_Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
