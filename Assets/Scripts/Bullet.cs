@@ -15,6 +15,12 @@ public class Bullet : MonoBehaviour
     // Is triggered when bullet hits obstacle
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // do nothing if bullet collides with shooting player
+        if (collision.tag == "Player")
+        {
+            return;
+        }
+
         // destroy bullet
         Destroy(gameObject);
 

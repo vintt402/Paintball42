@@ -5,30 +5,33 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public  float velocity = 6.5f;
+    public float velocity = 6.5f;
+    public float rotation_speed = 1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PaintballGun paintballGun;
 
-    // Update is called once per frame
+    private int rotation_direction = 1;
+    
     void Update()
     {
-        // WASD movement
-        float horizontalMovement = Input.GetAxisRaw("Horizontal");
-        float verticalMovement = Input.GetAxisRaw("Vertical");
-
-        Vector2 movementVector = new Vector2(horizontalMovement, verticalMovement);
-
-        transform.Translate(movementVector * velocity * Time.deltaTime, Space.World);
-
-        // Rotation
-        if (movementVector != Vector2.zero)
+        // movement
+        if (Input.GetKey("w"))
         {
-            float angle = Mathf.Atan2(movementVector.y, movementVector.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.position += transform.right * velocity * Time.deltaTime;
+        } else
+        {
+            transform.Rotate(0, 0, rotation_direction * rotation_speed);
+        }
+
+        if (Input.GetKeyDown("w"))
+        {
+            rotation_direction = -rotation_direction;
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            paintballGun.shoot();
+            rotation_direction = -rotation_direction;
         }
     }
 }
