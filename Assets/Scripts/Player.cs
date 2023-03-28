@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (buttonPress > 0)
+        if (Input.GetKey("space") || buttonPress > 0)
         {
             // move
             transform.position += transform.right * velocity * Time.deltaTime;
@@ -30,16 +31,19 @@ public class Player : MonoBehaviour
             transform.Rotate(0, 0, rotation_direction * rotationVelocity * Time.deltaTime);
         }
 
-        if (buttonPress == 1)
+        if (Input.GetKeyDown("space") || buttonPress == 1)
         {
             // change direction of rotation
             rotation_direction = -rotation_direction;
 
             // shoot
             paintballGun.Shoot();
+        }
 
+        if (buttonPress == 1)
+        {
             // exit first cycle
-            buttonPress = 2;
+            buttonPress++;
         }
     }
 
