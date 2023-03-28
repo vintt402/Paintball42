@@ -7,63 +7,52 @@ public class Player : MonoBehaviour
 {
     public float velocity;
     public float rotationVelocity;
-    public bool mobileControl;
 
     public PaintballGun paintballGun;
 
-    // only necessary for mobile control
+    // 0 => not pressed
+    // 1 => pressed, first cycle
+    // 2 => pressed, other cycle than first
+    private int buttonPress = 0;
+
     private int rotation_direction = 1;
     
     void Update()
     {
-        // mobile control
-        if (mobileControl)
+        if (buttonPress > 0)
         {
-            if (Input.GetKey("w"))
-            {
-                // move
-                transform.position += transform.right * velocity * Time.deltaTime;
-            }
-            else
-            {
-                // rotate if not moving
-                transform.Rotate(0, 0, rotation_direction * rotationVelocity * Time.deltaTime);
-            }
-
-            if (Input.GetKeyDown("w"))
-            {
-                // change direction of rotation
-                rotation_direction = -rotation_direction;
-
-                // shoot
-                paintballGun.Shoot();
-            }
+            // move
+            transform.position += transform.right * velocity * Time.deltaTime;
         }
-
-        // desktop control
         else
         {
-            // get user input
-            float horizontalMovement = Input.GetAxisRaw("Horizontal");
-            float verticalMovement = Input.GetAxisRaw("Vertical");
-
-            Vector2 movementVector = new Vector2(horizontalMovement, verticalMovement);
-
-            // move
-            transform.Translate(movementVector * velocity * Time.deltaTime, Space.World);
-
-            // rotate
-            if (movementVector != Vector2.zero)
-            {
-                float angle = Mathf.Atan2(movementVector.y, movementVector.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            }
-
-            // shooting
-            if (Input.GetButtonDown("Fire1"))
-            {
-                paintballGun.Shoot();
-            }
+            // rotate if not moving
+            transform.Rotate(0, 0, rotation_direction * rotationVelocity * Time.deltaTime);
         }
+
+        if (buttonPress == 1)
+        {
+            // change direction of rotation
+            rotation_direction = -rotation_direction;
+
+            // shoot
+            paintballGun.Shoot();
+
+            // exit first cycle
+            buttonPress = 2;
+        }
+    }
+
+    public void OnButtonDown()
+    {
+        if (buttonPress == 0)
+        {
+            buttonPress = 1;
+        }
+    }
+
+    public void OnButtonUp()
+    {
+        buttonPress = 0;
     }
 }
