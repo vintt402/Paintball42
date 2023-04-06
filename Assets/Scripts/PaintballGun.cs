@@ -9,6 +9,13 @@ public class PaintballGun : MonoBehaviour
     public int shootCount;
     public float shootInterval;
 
+    private int team;
+
+    public void Start()
+    {
+        team = gameObject.GetComponent<Player>().team;
+    }
+
     public void Shoot()
     {
         StartCoroutine(SpawnBullets());
@@ -19,7 +26,11 @@ public class PaintballGun : MonoBehaviour
         for (int i = 0; i < shootCount; i++)
         {
             // spawn one bullet
-            Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+
+            // set team of bullet
+            bullet.GetComponent<Bullet>().team = team;
+
             yield return new WaitForSeconds(shootInterval);
         }
     }

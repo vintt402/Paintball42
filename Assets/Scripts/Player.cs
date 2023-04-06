@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public float velocity;
     public float rotationVelocity;
 
+    public string controlKey;
+    public int team;
+
     public PaintballGun paintballGun;
 
     // 0 => not pressed
@@ -20,7 +23,7 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKey("space") || buttonPress > 0)
+        if (Input.GetKey(controlKey) || buttonPress > 0)
         {
             // move
             transform.position += transform.right * velocity * Time.deltaTime;
@@ -31,7 +34,7 @@ public class Player : MonoBehaviour
             transform.Rotate(0, 0, rotation_direction * rotationVelocity * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown("space") || buttonPress == 1)
+        if (Input.GetKeyDown(controlKey) || buttonPress == 1)
         {
             // change direction of rotation
             rotation_direction = -rotation_direction;

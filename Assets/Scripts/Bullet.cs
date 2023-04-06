@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     public float velocity = 30f;
     public Rigidbody2D rigidbody;
+
+    public int team;
 
     void Start()
     {
@@ -22,7 +25,16 @@ public class Bullet : MonoBehaviour
 
             // destroy entity
             Destroy(collision.gameObject);
-        } else if (collision.tag == "Wall")
+        } else if (collision.tag == "Player")
+        {
+            // ignore collision if player is in the same team
+            if (collision.gameObject.GetComponent<Player>().team != team)
+            {
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+            }
+        }
+        else if (collision.tag == "Wall")
         {
             // destroy bullet
             Destroy(gameObject);
