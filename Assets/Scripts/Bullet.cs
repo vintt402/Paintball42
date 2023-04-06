@@ -5,13 +5,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float velocity = 30f;
-    public Rigidbody2D rigidbody;
 
     public int team;
 
     void Start()
     {
-        rigidbody.velocity = transform.right * velocity;
+        gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * velocity;
     }
 
     // Is triggered when bullet hits obstacle
