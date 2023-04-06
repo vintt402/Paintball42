@@ -26,11 +26,11 @@ public class Bullet : MonoBehaviour
             Destroy(collision.gameObject);
         } else if (collision.tag == "Player")
         {
-            // ignore collision if player is in the same team
-            if (collision.gameObject.GetComponent<Player>().team != team)
+            // ignore collisions with players of same team and dead players
+            if (collision.gameObject.GetComponent<Player>().team != team && !collision.gameObject.GetComponent<Player>().dead)
             {
+                collision.gameObject.GetComponent<Player>().die();
                 Destroy(gameObject);
-                Destroy(collision.gameObject);
             }
         }
         else if (collision.tag == "Wall")

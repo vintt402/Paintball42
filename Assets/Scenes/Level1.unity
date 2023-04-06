@@ -414,6 +414,7 @@ MonoBehaviour:
   controlKey: 3
   team: 1
   paintballGun: {fileID: 720769823}
+  dead: 0
 --- !u!70 &720769825
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -571,6 +572,7 @@ MonoBehaviour:
   controlKey: 2
   team: 0
   paintballGun: {fileID: 924430354}
+  dead: 0
 --- !u!70 &924430356
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -864,6 +866,7 @@ MonoBehaviour:
   controlKey: 1
   team: 0
   paintballGun: {fileID: 949448296}
+  dead: 0
 --- !u!212 &949448292
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1082,6 +1085,7 @@ MonoBehaviour:
   controlKey: 4
   team: 1
   paintballGun: {fileID: 1087527708}
+  dead: 0
 --- !u!70 &1087527710
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
