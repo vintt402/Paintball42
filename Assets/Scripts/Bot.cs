@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BotScript : MonoBehaviour
+public class Bot : MonoBehaviour
 {
         // Das Ziel soll immer ein anderes GameObject sein. Wenn der Bot nah am Spieler ist soll er den Spieler töten, wenn nicht, dann soll er die Flagge holen.
         // public GameObject Ziel;
