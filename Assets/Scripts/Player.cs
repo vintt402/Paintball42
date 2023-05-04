@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 
     public bool dead = false;
 
+    public bool hasFlag = false;
+
     private void Start()
     {
         startPos = transform.position;
