@@ -23,6 +23,7 @@ public class Flag : MonoBehaviour
                 // reset if played died
                 transform.parent = null;
                 transform.position = initPosition;
+                transform.rotation = Quaternion.identity;
                 held = false;
 
                 holdingPlayer.GetComponent<Player>().hasFlag = false;
