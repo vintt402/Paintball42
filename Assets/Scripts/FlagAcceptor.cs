@@ -11,11 +11,13 @@ public class FlagAcceptor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Player>().team == team && collision.GetComponent<Player>().hasFlag && !GameManager.Instance.getGameOver())
-        {
-            winnerTextField.text = winnerText;
-            GameManager.Instance.setGameOver(true);
-            StartCoroutine(restart());
+        if (collision.tag == "Player") {
+            if (collision.GetComponent<Player>().team == team && collision.GetComponent<Player>().hasFlag && !GameManager.Instance.getGameOver())
+            {
+                winnerTextField.text = winnerText;
+                GameManager.Instance.setGameOver(true);
+                StartCoroutine(restart());
+            }
         }
     }
 
